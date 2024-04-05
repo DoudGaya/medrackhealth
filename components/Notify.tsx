@@ -5,30 +5,48 @@ import React, { useState} from 'react'
 const Notify = () => {
 
     const [notify, setNotify] = useState(true)
-    const [email, setEmail] = useState({email: ''})
+    const [email, setEmail] = useState('')
 
-    const formChange = (event: any) => {
-        const { value } = event.target
-        setEmail({email: value})
-        console.log(email)
-    }
-    const handleNotifyForm = (event: any) => {
+
+    // @ts-ignore
+    const handleNotifyForm = async (event) => {
         event.preventDefault()
-        if (email.email == '') {
-            return
+        if (email == '') {
+            return;
         }
-        console.log(email)
-        setNotify(false)
-    }
+
+        try {
+          const res = await fetch('api/subscriber', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify({
+                    email
+                })
+            })
+
+            if (res.ok) {
+                const form = event.target;
+                form.reset()
+                setNotify(false)
+            }
+        } catch (error) {
+            console.log('Error While creating subscription form')
+        }
+    } 
 
   return (
     <div className=" flex flex-col justify-center text-center md:text-start space-y-10 px-10 md:space-y-4">
           <h1 className=" text-3xl md:text-5xl font-bold ">Welcome to Africa’s first Low-Cost Pharmacy</h1>
-          <h3 className=" text-xl font-light">Join our Wait list to be notified when we launch ✈️ </h3>
+          <h3 className=" text-xl font-light">
+          Save up-to 65% on all prescription medications and get access to a registered health care provider all from your phone.
+             </h3>
+            <p className=' text-lg'>Join our wait-list to get notified when we launch! </p>
          { notify ? (
-         <form onSubmit={handleNotifyForm} className=" p-3 flex  rounded-md border border-emerald-300 bg-white ">
-             <input onChange={formChange} type="email" placeholder="info@medrack.com" className=" text-lg outline-none w-full" />
-             <button className=" flex-none bg-primary px-6 rounded-md py-2 text-white font-semibold">NOTIFY ME</button>
+         <form onSubmit={handleNotifyForm} className=" rounded-full flex px-3 py-2 border ">
+             <input onChange={(e) => setEmail(e.target.value) } type="email" placeholder="info@medrack.com" className=" text-lg outline-none w-full" />
+             <button className=" flex-none bg-primary px-6 rounded-full py-2 text-white font-semibold">NOTIFY ME</button>
         </form>
          ) :
             (
