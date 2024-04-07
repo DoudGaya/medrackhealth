@@ -48,7 +48,7 @@ const Notify = () => {
          { notify ? (
          <form onSubmit={handleNotifyForm} className=" rounded-full flex px-3 py-2 border ">
              <input onChange={(e) => setEmail(e.target.value) } type="email" placeholder="info@medrack.com" className=" text-lg outline-none w-full" />
-             <button className=" flex-none bg-primary px-6 w-10 rounded-full py-2 text-white font-semibold">
+             <button className=" flex-none bg-primary px-6 rounded-full py-2 text-white font-semibold">
                <p>NOTIFY ME</p>
              </button>
              
