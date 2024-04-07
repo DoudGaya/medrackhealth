@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className=" flex flex-col space-y-6">
       <div className=" h-screen w-full bg-white text-black flex flex-col ">
-      <div className=" w-full flex justify-between px-8 max-w-7xl mx-auto py-6">
+      <div className=" w-full flex justify-between px-8 max-w-6xl mx-auto py-6">
        <div className=""><Image alt="Medrack Logo" src={medrackLogo} className=" h-10 w-full"  /></div>
        <button className=" block md:hidden">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

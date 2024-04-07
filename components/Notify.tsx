@@ -6,6 +6,7 @@ const Notify = () => {
 
     const [notify, setNotify] = useState(true)
     const [email, setEmail] = useState('')
+    const [loader, setLoader] = useState(false)
 
 
     // @ts-ignore
@@ -14,7 +15,7 @@ const Notify = () => {
         if (email == '') {
             return;
         }
-
+        setLoader(true)
         try {
           const res = await fetch('api/subscriber', {
                 method: 'POST',
@@ -27,6 +28,7 @@ const Notify = () => {
             })
 
             if (res.ok) {
+                setLoader(false)
                 const form = event.target;
                 form.reset()
                 setNotify(false)
@@ -46,7 +48,10 @@ const Notify = () => {
          { notify ? (
          <form onSubmit={handleNotifyForm} className=" rounded-full flex px-3 py-2 border ">
              <input onChange={(e) => setEmail(e.target.value) } type="email" placeholder="info@medrack.com" className=" text-lg outline-none w-full" />
-             <button className=" flex-none bg-primary px-6 rounded-full py-2 text-white font-semibold">NOTIFY ME</button>
+             <button className=" flex-none bg-primary px-6 w-10 rounded-full py-2 text-white font-semibold">
+               <p>NOTIFY ME</p>
+             </button>
+             
         </form>
          ) :
             (
