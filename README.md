@@ -1,1 +1,0 @@
-## Medrack Health Pharmaceuticals
